@@ -78,6 +78,23 @@ export default function Hero(props) {
                         </div>
                     </div>
                 </div>
+
+                <div className="col-6 pl-5">
+                    <div style={{ width: 520, height: 410 }}>
+                        <img
+                            src={ImageHero}
+                            alt="Room with couches"
+                            className="img-fluid position-absolute"
+                            style={{ margin: '-30px 0', zIndex: 1 }}
+                        />
+                        <img 
+                            src={ImageHero_}
+                            alt="Room with couches frame"
+                            className="img-fluid position-absolute"
+                            style={{ margin: "0 -15px" }}
+                        />
+                    </div>
+                </div>
             </div>
         </section>
     )

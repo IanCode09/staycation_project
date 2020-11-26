@@ -1,7 +1,7 @@
 .container-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: minmax(185px, auto);
+    grid-auto-rows: minmax(185px, auto);
     grid-auto-flow: dense;
     row-gap: 30px;
     column-gap: 30px;
@@ -51,7 +51,6 @@
         &.column-12 {
             grid-column-end: span 12;
         }
-
         &.row-1 {
             grid-row-end: span 1;
         }

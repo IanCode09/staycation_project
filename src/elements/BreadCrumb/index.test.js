@@ -1,37 +1,31 @@
 import React from 'react'
-import propTypes from 'prop-types'
-import Button from 'elements/Button'
-import './index.scss'
+import { render } from '@testing-library/react'
+import Breadcrumb from './index'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-export default function Breadcrumb (props) {
-    return (
-        <nav aria-label="breadcrumb">
-            <ol className={className.join(" ")}>
-                {props.data.map((item, index) => {
-                    return (
-                        <li
-                            key={`breadcrumb-${index}`}
-                            className={`breadcrumb-item${
-                                index === props.data.length - 1 ? " active" : ""
-                            }`}
-                        >
-                            {index === props.data.length - 1 ? (
-                                item.pageTitle
-                            ) : (
-                                <Button type="link" href={item.pageHref}>
-                                    {item.pageTitle}
-                                </Button>
-                            )}
-                        </li>
-                    )
-                })}
-            </ol>
+const setup = () => {
+    const breadcrumbList = [
+        { pageTitle: "Home", pageHref: ""},
+        { pageTitle: "House Details", pageHref: ""}
+    ]
 
-        </nav>
+    const { container } = render(
+        <Router>
+            <Breadcrumb data={breadcrumbList} />
+        </Router>
     )
+
+    const breadcrumb = container.querySelector(`.breadcrumb`)
+    
+    return {
+        breadcrumb
+    }
 }
 
-Breadcrumb.propTypes = {
-    data: propTypes.array,
-    className: propTypes.string
-}
+test("Should have ol with className .breadcrumb and have text home & house Details", () => {
+    const { breadcrumb } = setup()
+
+    expect(breadcrumb).toBeInTheDocument();
+    expect(breadcrumb).toHaveTextContent("Home");
+    expect(breadcrumb).toHaveTextContent("House Details");
+})

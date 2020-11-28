@@ -6,7 +6,7 @@ import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 
 import formatDate from 'utils/formatDate'
-import iconCalender from 'assets/images/icons/ic_calendar.svg'
+import iconCalendar from 'assets/images/icons/ic_calendar.svg'
 
 export default function Date(props) {
     const { value, placeholder, name } = props
@@ -18,65 +18,65 @@ export default function Date(props) {
                 value: value.selection,
                 name: name
             }
-        }
+        };
         props.onChange(target)
-    }
+    };
 
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside)
+        document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-    })
+            document.removeEventListener('mousedown', handleClickOutside)
+        };
+    });
 
     const refDate = useRef(null)
     const handleClickOutside = event => {
         if(refDate && !refDate.current.contains(event.target)) {
             setIsShowed(false)
         }
-    }
+    };
 
     const check = focus => {
         focus.indexOf(1) < 0 && setIsShowed(false)
-    }
+    };
 
-    const displayDate = `${value.startDate ? formatDate(value.startDate) : ""}
-                         ${value.endDate ? " - " + formatDate(value.endDate) : ""}`
-    
+    const displayDate = `${value.startDate ? formatDate(value.startDate) :""}${value.endDate ? " - " + formatDate(value.endDate) : ""}`;
+
     return (
-        <div 
+        <div
             ref={refDate}
             className={["input-date mb-3", props.outerClassName].join(" ")}
         >
+
             <div className="input-group">
                 <div className="input-group-prepend bg-gray-900">
                     <span className="input-group-text">
-                        <img src={iconCalender} alt="icon calender" />
+                        <img src={iconCalendar} alt="icon calendar " />
                     </span>
                 </div>
-            </div>
-            
-            <input
-                readOnly
-                type="text"
-                className="form-control"
-                value={displayDate}
-                placeholder={placeholder}
-                onClick={() => setIsShowed(!isShowed)}
-            />
 
-            {isShowed && (
-                <div className="date-range-wrapper">
-                    <DateRange
-                        editableDateInputs={true}
-                        onChange={datePickerChange}
-                        moveRangeOnFirstSelection={false}
-                        onRangeFocusChange={check}
-                        ranges={[value]}
-                    />
-                </div>
-            )}
+                <input
+                    readOnly
+                    type="text"
+                    className="form-control"
+                    value={displayDate}
+                    placeholder={placeholder}
+                    onClick={() => setIsShowed(!isShowed)}
+                />
+
+                {isShowed && (
+                    <div className="date-range-wrapper">
+                        <DateRange
+                            editableDateInputs={true}
+                            onChange={datePickerChange}
+                            moveRangeOnFirstSelection={false}
+                            onRangeFocusChange={check}
+                            ranges={[value]}
+                        />
+                    </div>
+                )}
+            </div>
         </div>
     )
 }
